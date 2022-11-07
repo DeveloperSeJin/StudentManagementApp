@@ -11,7 +11,7 @@ const Login = (props) => {
             <Input></Input>
             <TouchableOpacity
                 onPress={()=>{
-                    props.navigation.navigate("Authentication")
+                    props.navigation.navigate("Home")
                 }}>
                     <Image
                         style={{width:400,height:100}}
