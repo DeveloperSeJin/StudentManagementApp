@@ -6,18 +6,13 @@ import {
     addDoc, collection, getDocs,
      doc, updateDoc, where, query} from "firebase/firestore";
 import {useState} from 'react'
-import TestList from './TestList'
 
-const Home = (props) => {
+const SelectionStrategy = (props) => {
     return (
-        <View>
-            <Text style = {styles.List}>The number of students in a class</Text>
-            <Text style = {styles.List}>Class Number</Text>
-            <Text style = {styles.List}>Telephone Number</Text>
-            <Text style = {styles.List}>Name</Text>
-            <Text style = {styles.List}>진도표시</Text>
-            <Text style = {styles.List}>Teacher Name</Text>
-            {/*
+        <View
+            style = {styles.LoginLocation}>
+            <Text>NAME</Text>
+            <Text>CLASS AND STUDENTS</Text>
             <TouchableOpacity
                     onPress={ ()=>{
                         props.navigation.navigate("ClassInformation")
@@ -38,36 +33,30 @@ const Home = (props) => {
                     resizeMode="contain"
                 />
             </TouchableOpacity>
-            */}
             <TouchableOpacity
                     onPress={ ()=>{
                         props.navigation.navigate("TestList")
                     }}>
-                <Text style = {styles.startbutton}
-                    Go to TestList
+                <Image
+                    style={{width:400,height:100}}
+                    source={MyStudent}
+                    resizeMode="contain"
                 />
-            </TouchableOpacity>         
+            </TouchableOpacity>
+           
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    List: {
+    LoginLocation: {
       width:'70',
-      marginTop:50,
-      marginLeft :20,
+      marginTop:200,
+      marginLeft :200,
       marginRight:200,
       fontSize:25,
       padding:10
     },
-    startbutton: {
-        width:'70',
-        marginLeft :200,
-        marginRight:200,
-        fontSize:40,
-        padding:10
-    }
   });
 
-
-export default Home
+export default SelectionStrategy
