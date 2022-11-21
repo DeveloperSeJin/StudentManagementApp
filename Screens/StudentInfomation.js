@@ -1,8 +1,22 @@
-import {Text} from 'react-native';
+import {Text, View} from 'react-native';
 
-const StudentInformation = () => {
+const StudentInformation = (props) => {
+    const {params} = props.route
+    const stuID = params? params.stuID:null;
+
+    const showReport = () => {
+        let show;
+        if (stuID == "001") {
+            show = <Text>hi</Text>
+        }
+        return(show);
+    }
+
     return (
-        <Text>HI</Text>
+        <View>
+            <Text>{stuID}</Text>
+            {showReport()}
+        </View>
     );
 }
 

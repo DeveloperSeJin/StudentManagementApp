@@ -1,6 +1,11 @@
-import {View, Text, Button, Image, TouchableOpacity, Touchable, StyleSheet} from 'react-native'
+import {View, Text, Button, Image, TouchableOpacity, Touchable, StyleSheet, SliderComponent} from 'react-native'
 import Score from '../assets/Score.png'
 import MyStudent from '../assets/MyStudent.png'
+import {db} from '../firebaseConfig'
+import {
+    addDoc, collection, getDocs,
+     doc, updateDoc, where, query} from "firebase/firestore";
+import {useState} from 'react'
 
 const Home = (props) => {
     return (
@@ -9,7 +14,7 @@ const Home = (props) => {
             <Text>NAME</Text>
             <Text>CLASS AND STUDENTS</Text>
             <TouchableOpacity
-                    onPress={()=>{
+                    onPress={ ()=>{
                         props.navigation.navigate("ClassInformation")
                     }}>
                 <Image
@@ -19,7 +24,7 @@ const Home = (props) => {
                 />
             </TouchableOpacity>
             <TouchableOpacity
-                    onPress={()=>{
+                    onPress={ ()=>{
                         props.navigation.navigate("StudentList")
                     }}>
                 <Image
@@ -28,6 +33,7 @@ const Home = (props) => {
                     resizeMode="contain"
                 />
             </TouchableOpacity>
+           
         </View>
     );
 }
