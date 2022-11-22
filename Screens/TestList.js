@@ -6,42 +6,81 @@ import {
     addDoc, collection, getDocs,
      doc, updateDoc, where, query} from "firebase/firestore";
 import {useState} from 'react'
+import MainQuestion from './MainQuestion1'
+import MainQuestion from './MainQuestion2'
+import MainQuestion from './MainQuestion3'
+import MainQuestion from './MainQuestion4'
+import MainQuestion from './MainQuestion5'
+import MainQuestion from './MainQuestion6'
+import MainQuestion from './MainQuestion7'
+import MainQuestion from './MainQuestion8'
 
 const TestList = (props) => {
     return (
-        <View
-            style = {styles.LoginLocation}>
-            <Text>NAME</Text>
-            <Text>CLASS AND STUDENTS</Text>
+        <View>
             <TouchableOpacity
                     onPress={ ()=>{
-                        props.navigation.navigate("ClassInformation")
+                        props.navigation.navigate("ManQuestion1")
                     }}>
-                <Image
-                    style={{width:400,height:100}}
-                    source={Score}
-                    resizeMode="contain"
-                />
+                <View style = {styles.Question}>
+                    <Text>1. Todd's Problem</Text>
+                    </View>        
             </TouchableOpacity>
             <TouchableOpacity
                     onPress={ ()=>{
-                        props.navigation.navigate("StudentList")
+                        props.navigation.navigate("ManQuestion2")
                     }}>
-                <Image
-                    style={{width:400,height:100}}
-                    source={MyStudent}
-                    resizeMode="contain"
-                />
+                <View style = {styles.Question}>
+                    <Text>2. Jen's Problem</Text>
+                    </View>        
             </TouchableOpacity>
             <TouchableOpacity
                     onPress={ ()=>{
-                        props.navigation.navigate("TestList")
+                        props.navigation.navigate("ManQuestion3")
                     }}>
-                <Image
-                    style={{width:400,height:100}}
-                    source={MyStudent}
-                    resizeMode="contain"
-                />
+                <View style = {styles.Question}>
+                    <Text>3. Jennifer's Problem</Text>
+                    </View>        
+            </TouchableOpacity>
+            <TouchableOpacity
+                    onPress={ ()=>{
+                        props.navigation.navigate("ManQuestion4")
+                    }}>
+                <View style = {styles.Question}>
+                    <Text>4. Elena's Problem</Text>
+                    </View>        
+            </TouchableOpacity>
+            <TouchableOpacity
+                    onPress={ ()=>{
+                        props.navigation.navigate("ManQuestion5")
+                    }}>
+                <View style = {styles.Question}>
+                    <Text>5. Mario's Problem</Text>
+                    </View>        
+            </TouchableOpacity>
+            <TouchableOpacity
+                    onPress={ ()=>{
+                        props.navigation.navigate("ManQuestion6")
+                    }}>
+                <View style = {styles.Question}>
+                    <Text>6. Rectangle Problem</Text>
+                    </View>        
+            </TouchableOpacity>
+            <TouchableOpacity
+                    onPress={ ()=>{
+                        props.navigation.navigate("ManQuestion7")
+                    }}>
+                <View style = {styles.Question}>
+                    <Text>7. Jim's Problem</Text>
+                    </View>        
+            </TouchableOpacity>
+            <TouchableOpacity
+                    onPress={ ()=>{
+                        props.navigation.navigate("ManQuestion8")
+                    }}>
+                <View style = {styles.Question}>
+                    <Text>8. Owen's Problem</Text>
+                    </View>        
             </TouchableOpacity>
            
         </View>
@@ -49,13 +88,10 @@ const TestList = (props) => {
 }
 
 const styles = StyleSheet.create({
-    LoginLocation: {
-      width:'70',
-      marginTop:200,
-      marginLeft :200,
-      marginRight:200,
+    Question: {
+      height:"25%",
       fontSize:25,
-      padding:10
+      flex:1
     },
   });
 
