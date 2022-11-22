@@ -1,4 +1,4 @@
-import {View, TextInput, Text, Button} from 'react-native'
+import {View, TextInput, Text, Button, TouchableOpacity} from 'react-native'
 import {db} from '../firebaseConfig'
 import {
     addDoc, collection, getDocs,
@@ -12,13 +12,14 @@ const StudentInformation = (props) => {
 
     const [Question, SetQeustion] = useState();
     const [flag,setFlag] = useState(true);
-
+    const [Strategy, setStrategy] = useState();
+    const [Promport, setPromport] = useState();
+    const [Answer, setAnswer] = useState();
 
     var sortJSON = function(data, key, type) {
         if (type == undefined) {
           type = "asc";
         }
-        console.log("data : ", data)
         return data.sort(function(a, b) {
           var x = a[key];
           var y = b[key];
@@ -30,7 +31,7 @@ const StudentInformation = (props) => {
         });
       };
 
-    const readfromDB = async () => {
+    const getQuestion = async () => {
         try{
             const data = await getDocs(collection(db, "question"))
             let itemList = []
@@ -43,8 +44,72 @@ const StudentInformation = (props) => {
             console.log(error.message)
         }
     }
+    const getStrategy = async () => {
+        try{
+            const data = await getDocs(collection(db, "strategy"))
+
+            setStrategy(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+        } catch(error) {
+            console.log(error.message)
+        }
+    }
+
+    const getPromport = async () => {
+        try{
+            const data = await getDocs(collection(db, "promport"))
+
+            setPromport(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+        } catch(error) {
+            console.log(error.message)
+        }
+    }
+
+    const getAnswer = async () => {
+        try{
+            const data = await getDocs(collection(db, "answer"))
+
+            setAnswer(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+        } catch(error) {
+            console.log(error.message)
+        }
+    }
+    const checkQuestion = (qid) => {
+        var check = 0;
+        var num = 0;
+
+        Answer?.map((item) => {
+            if (item.student_id === stuID) {
+                Promport?.map((doc) => {
+                    if(doc.promport_id === item.promport_id) {
+                        Strategy?.map((get)=> {
+                            if(get.question_id === qid) {
+                                num++;
+                                if (get.strategy_id === doc.strategy_id) {
+                                    if(item.answer_check === "true") {
+                                        check++;
+                                    }
+                                }
+                            }
+                        })
+                    }
+                })
+            }
+        })
+        console.log(num)
+        if (check == 0) {
+            return "X"
+        } else if ( check == num ) {
+            return "V"
+        }  else {
+            return "*"
+        }
+    }
+
     if(flag){
-        readfromDB()
+        getQuestion()
+        getStrategy()
+        getPromport()
+        getAnswer()
         setFlag(false)
     }
 
@@ -64,10 +129,11 @@ const StudentInformation = (props) => {
             {showReport()}
             {Question?.map((item, idx) => {
                 return(
-                    <View>
-                        <Text>{item.question_id} {item.main_question}</Text>
+                    
+                    <TouchableOpacity key = {idx}>
+                        <Text>{item.question_id} {item.main_question} {checkQuestion(item.question_id)}</Text>
                         <Text>-------------------------------------------------------</Text>
-                    </View>
+                    </TouchableOpacity>
                 )
             })}
         </View>
