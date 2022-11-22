@@ -3,7 +3,7 @@ import {db} from '../firebaseConfig'
 import {
     addDoc, collection, getDocs,
      doc, updateDoc, where, query} from "firebase/firestore";
-import {useState,useEffect} from 'react'
+import {useState} from 'react'
 
 
 const StudentInformation = (props) => {
