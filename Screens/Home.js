@@ -8,14 +8,78 @@ import {
 import {useState} from 'react'
 
 const Home = (props) => {
+    const [student, setStudent] = useState()
+    const [answer, setAnswer] = useState()
+    const [flag,setFlag] = useState(true);
+    var labelList = []
+    var dataList = []
+    var result = {};
+
+    const getStudent = async () => {
+        try{
+            const data = await getDocs(collection(db, "student"))
+    
+            setStudent(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+        } catch(error) {
+            console.log(error.message)
+        }
+    }
+
+    const getAnswer = async () => {
+        try{
+            const data = await getDocs(collection(db, "answer"))
+    
+            setAnswer(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
+        } catch(error) {
+            console.log(error.message)
+        }
+    }
+
+    if(flag){
+        getStudent()
+        getAnswer()
+        setFlag(false)
+    }
+
+    const getScore = (id) => {
+        var score = 0;
+  
+        answer?.map((doc) => {
+          if (doc.student_id == id) {
+            score++;
+          }
+        })
+        dataList.push(score)
+      }
+      
+      const getData = () => {
+        student?.map((item) => {
+            {labelList.push(item.name)}
+            {getScore(item.studentid)}
+          })
+          
+          result = {
+            labels: labelList,
+            datasets: [
+              {
+                data: dataList
+              }
+            ]
+        }
+        labelList = []
+        dataList = []
+      }
+
     return (
         <View
             style = {styles.LoginLocation}>
             <Text>NAME</Text>
             <Text>CLASS AND STUDENTS</Text>
             <TouchableOpacity
-                    onPress={ ()=>{
-                        props.navigation.navigate("ClassInformation")
+                    onPress={ async ()=>{
+                        {await getData()}
+                        props.navigation.navigate("ClassInformation", 
+                        {data : result})
                     }}>
                 <Image
                     style={{width:400,height:100}}

@@ -9,60 +9,9 @@ import {useState} from 'react'
 
 
 
-const ClassInformation = () => {
-    const [student, setStudent] = useState()
-    const [answer, setAnswer] = useState()
-    const [flag,setFlag] = useState(true);
-    const [data, setData] = useState();
-
-    const getStudent = async () => {
-        try{
-            const data = await getDocs(collection(db, "student"))
-    
-            setStudent(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
-        } catch(error) {
-            console.log(error.message)
-        }
-    }
-    const getAnswer = async () => {
-        try{
-            const data = await getDocs(collection(db, "answer"))
-    
-            setAnswer(data.docs.map(doc => ({ ...doc.data(), id: doc.id})));
-        } catch(error) {
-            console.log(error.message)
-        }
-    }
-      if(flag){
-        getStudent()
-        getAnswer()
-        setFlag(false)
-    
-        let labelList = []
-        let dataList = []
-        student?.map((item) => {
-            labelList.push(item.name)
-            let score = 0
-            answer?.map((doc) => {
-                if (item.student_id === doc.student_id) {
-                    if(doc.answer_check) {
-                        score++;
-                    }
-                }
-            })
-            dataList.push(score)
-        })
-        console.log(labelList)
-        console.log(dataList)
-        setData({
-            labels: labelList,
-            datasets: [
-              {
-                data: dataList
-              }
-            ]
-        })
-    }
+const ClassInformation = (props) => {
+    const {params} = props.route
+    const dataes = params? params.data:null;
 
     const chartConfig = {
         backgroundColor: "#e26a00",
@@ -80,15 +29,17 @@ const ClassInformation = () => {
           stroke: "#ffa726"
         }
       }
+
+    
+        
     return (
       <View>
-        <Text>Bezier Line Chart</Text>
+        <Text>성적 그래프</Text>
+        
         <LineChart
-          data={data}
+          data={dataes}
           width={Dimensions.get("window").width} // from react-native
           height={220}
-          yAxisLabel="$"
-          yAxisSuffix="k"
           yAxisInterval={1} // optional, defaults to 1
           chartConfig={chartConfig}
           bezier
