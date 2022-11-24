@@ -16,7 +16,7 @@ const StudentInformation = (props) => {
     const [Promport, setPromport] = useState();
     const [Answer, setAnswer] = useState();
 
-    var sortJSON = function(data, key, type) {
+    const sortJSON = function(data, key, type) {
         if (type == undefined) {
           type = "asc";
         }
