@@ -4,14 +4,11 @@ import {
     addDoc, collection, getDocs,
      doc, updateDoc, where, query} from "firebase/firestore";
 import {useState,useEffect} from 'react'
-import { TouchableOpacity } from 'react-native-web';
-import Database from '../Components/Database';
+import { TouchableOpacity } from 'react-native';
 
 const StudentList =  (props) => {
     const [studentInfo, setStudentInfo] = useState();
     const [flag,setFlag] = useState(true);
-
-
 
     const readfromDB = async () => {
         try{
@@ -21,6 +18,7 @@ const StudentList =  (props) => {
             console.log(error.message)
         }
     }
+
     if(flag){
         readfromDB()
         setFlag(false)
