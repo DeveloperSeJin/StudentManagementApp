@@ -2,7 +2,7 @@ import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from './Screens/Login'
 import Find from './Screens/Find'
-import Authentication from './Screens/Authentication'
+import SignUp from './Screens/SignUp'
 import Home from './Screens/Home'
 import StudentList from './Screens/StudentList'
 import ClassInformation from './Screens/ClassInformation'
@@ -18,7 +18,7 @@ const Stack = createStackNavigator();
        <Stack.Navigator initialRouteName='Login'>
          <Stack.Screen name = "Login" component = {Login}/>
          <Stack.Screen name = "Find" component = {Find}/>
-         <Stack.Screen name = "Authentication" component = {Authentication}/>
+         <Stack.Screen name = "SignUp" component = {SignUp}/>
          <Stack.Screen name = "Home" component = {Home}/>
          <Stack.Screen name = "StudentList" component = {StudentList}/>
          <Stack.Screen name = "ClassInformation" component = {ClassInformation}/>
