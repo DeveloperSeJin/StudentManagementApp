@@ -95,7 +95,6 @@ const StudentInformation = (props) => {
                 })
             }
         })
-        console.log(num)
         if (check == 0) {
             return "X"
         } else if ( check == num ) {
@@ -130,7 +129,14 @@ const StudentInformation = (props) => {
             {Question?.map((item, idx) => {
                 return(
                     
-                    <TouchableOpacity key = {idx}>
+                    <TouchableOpacity 
+                        key = {idx}
+                         onPress ={()=> {
+                            props.navigation.navigate("SelectStrategy",
+                            {question_id:item.question_id,
+                             stu_id:stuID})
+                         }}
+                    >
                         <Text>{item.question_id} {item.main_question} {checkQuestion(item.question_id)}</Text>
                         <Text>-------------------------------------------------------</Text>
                     </TouchableOpacity>
