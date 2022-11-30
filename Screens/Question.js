@@ -1,4 +1,4 @@
-import {TouchableOpacity, Text, View, TextInput, Button} from 'react-native';
+import { Text, View, TextInput, Button} from 'react-native';
 import {useState} from 'react';
 import {db} from '../firebaseConfig'
 import {
@@ -26,10 +26,10 @@ const Question = (props) => {
         });
       };
       
-    const getANswer = async() => {
+    const getAnswer = async() => {
         try{
             const data = await getDocs(collection(db, "answer"))
-            
+            //where문으로 student id 똑같은 것 만 가져오기
             setAnswer(data.docs.map(doc=>(
                 {...doc.data(), id: doc.id}
                 )))
@@ -54,7 +54,7 @@ const Question = (props) => {
             await updateDoc(docRef, {
                 feedback : feedback
             });
-            getANswer()
+            getAnswer()
             console.log("success")
         } catch (error) {
             console.log(error.message);
@@ -79,7 +79,7 @@ const Question = (props) => {
     }
 
     if(flag){
-        getANswer()
+        getAnswer()
         getPromport()
         setFlag(false)
     }

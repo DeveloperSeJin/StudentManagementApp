@@ -104,7 +104,7 @@ const Home = (props) => {
 
 const styles = StyleSheet.create({
     LoginLocation: {
-      width:'70',
+      width:70,
       marginTop:200,
       marginLeft :200,
       marginRight:200,

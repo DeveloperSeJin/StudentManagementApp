@@ -44,8 +44,8 @@ const ClassInformation = (props) => {
           chartConfig={chartConfig}
           bezier
           style={{
-            marginVertical: 8,
-            borderRadius: 16
+         //   marginVertical: 8,
+          //  borderRadius: 16
           }}
         />
       </View>
