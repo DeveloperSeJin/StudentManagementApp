@@ -1,14 +1,23 @@
-import {View, TextInput, Text, Button, TouchableOpacity} from 'react-native'
+import {View, TextInput, Text, Button, TouchableOpacity, Image, ScrollView, ImageBackground} from 'react-native'
 import {db} from '../firebaseConfig'
 import {
     addDoc, collection, getDocs,
      doc, updateDoc, where, query} from "firebase/firestore";
 import {useState} from 'react'
-
+import questionImg from '../assets/questionImg.png'
+import solved from '../assets/solved.png'
+import home from '../assets/home.png'
+import ax from '../assets/ax.png'
+import triangle from '../assets/triangle.png'
+import circle from '../assets/circle.png'
+import paper from '../assets/paper.png'
 
 const StudentInformation = (props) => {
     const {params} = props.route
     const stuID = params? params.stuID:null;
+    const myClass = params?params.myClass:null;
+    const name = params?params.name:null;
+    const stu_name = params?params.stu_name:null;
 
     const [Question, SetQeustion] = useState();
     const [flag,setFlag] = useState(true);
@@ -96,11 +105,11 @@ const StudentInformation = (props) => {
             }
         })
         if (check == 0) {
-            return "X"
+            return ax
         } else if ( check == num ) {
-            return "V"
+            return circle
         }  else {
-            return "*"
+            return triangle
         }
     }
 
@@ -123,9 +132,28 @@ const StudentInformation = (props) => {
     
       
     return (
-        <View>
-            <Text>{stuID}</Text>
-            {showReport()}
+        <View
+            style={{marginTop:50}}
+        >
+            <TouchableOpacity
+            onPress = { ()=>props.navigation.navigate("Home",
+            {myClass:myClass,
+             name:name})}>
+          <Image
+            style={{width:30,height:30, marginLeft:20, marginRight:100}}
+            source={home}
+            resizeMode="contain"
+          />
+          <ImageBackground
+            style ={{marginTop:20, marginBottom:40, height:60}}
+            source={paper}
+          >
+            <Text
+                style ={{marginLeft:60,marginTop: 5, fontSize:25}}
+            >student name : {stu_name}</Text>
+          </ImageBackground>
+        </TouchableOpacity>
+        <ScrollView>
             {Question?.map((item, idx) => {
                 return(
                     
@@ -134,14 +162,25 @@ const StudentInformation = (props) => {
                          onPress ={()=> {
                             props.navigation.navigate("SelectStrategy",
                             {question_id:item.question_id,
-                             stu_id:stuID})
+                             stu_id:stuID,
+                             myClass:myClass,
+                             name:name,
+                             stu_name:stu_name})
                          }}
                     >
-                        <Text>{item.question_id} {item.main_question} {checkQuestion(item.question_id)}</Text>
-                        <Text>-------------------------------------------------------</Text>
+                         <Image
+                            style={{width:100,height:100, marginTop:20}}
+                            source={checkQuestion(item.question_id)}
+                            resizeMode="contain"
+                        />
+                        <Text
+                            style ={{marginBottom:30}}
+                        >{item.title}</Text>
                     </TouchableOpacity>
                 )
             })}
+            <View style ={{marginBottom:150}}/>
+            </ScrollView>
         </View>
     );
 }

@@ -1,5 +1,6 @@
-import { View, Dimensions, Text, } from 'react-native'
-import { LineChart } from "react-native-chart-kit";
+import { View, Dimensions, Text, TouchableOpacity, Image} from 'react-native'
+import { LineChart, BarChart } from "react-native-chart-kit";
+import home from '../assets/home.png'
 import {db} from '../firebaseConfig'
 import {
     addDoc, collection, getDocs,
@@ -12,6 +13,9 @@ import {useState} from 'react'
 const ClassInformation = (props) => {
     const {params} = props.route
     const dataes = params? params.data:null;
+    const progress = params?params.bar:null;
+    const myClass = params?params.myClass:null;
+    const name = params?params.name:null;
 
     const chartConfig = {
         backgroundColor: "#e26a00",
@@ -24,8 +28,8 @@ const ClassInformation = (props) => {
           borderRadius: 16
         },
         propsForDots: {
-          r: "6",
-          strokeWidth: "2",
+          r: 6,
+          strokeWidth: 2,
           stroke: "#ffa726"
         }
       }
@@ -33,10 +37,23 @@ const ClassInformation = (props) => {
     
         
     return (
-      <View>
-        <Text>성적 그래프</Text>
-        
-        <LineChart
+      <View
+        style = {{marginTop:50}}
+      >
+        <TouchableOpacity
+            onPress = { ()=>props.navigation.navigate("Home",
+            {myClass:myClass,
+             name:name})}>
+          <Image
+            style={{width:30,height:30, marginLeft:20, marginRight:100}}
+            source={home}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+        <Text
+          style ={{marginTop:30, marginLeft:110, fontSize:20}}
+        >--Student grade--</Text>
+        <LineChart 
           data={dataes}
           width={Dimensions.get("window").width} // from react-native
           height={220}
@@ -47,6 +64,24 @@ const ClassInformation = (props) => {
          //   marginVertical: 8,
           //  borderRadius: 16
           }}
+        />
+        <View 
+          style ={{marginTop:50, marginBottom:50}}
+        />
+        <Text
+          style ={{marginTop:30, marginLeft:110, fontSize:20}}
+        >--Student progress--</Text>
+        <BarChart
+        data={progress}
+        width={Dimensions.get("window").width} // from react-native
+        height={220}
+        yAxisInterval={1} // optional, defaults to 1
+        chartConfig={chartConfig}
+        bezier
+        style={{
+       //   marginVertical: 8,
+        //  borderRadius: 16
+        }}
         />
       </View>
     );
